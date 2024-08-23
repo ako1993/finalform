@@ -51,6 +51,25 @@
         // This method will be called when the form is submitted and is valid
         Console.WriteLine($"Submitted: Name={formData.Name}, Email={formData.Email}, Job Title={formData.JobTitle}");
     }
+
+    public class User
+    {
+        public int Tickets = 0;
+        public string Name { get; set; }
+        public string Email { get; set; }
+
+        public void addTickets()
+        {
+            Tickets++;
+            Console.WriteLine($"You now have {Tickets}");
+        }
+
+        public void removeTickets()
+        {
+            Tickets--;
+            Console.WriteLine($"You now have {Tickets}");
+        }
+    }
 }
 
 <!--EditForm: Encloses the entire form. It handles form submission and validation.
@@ -62,6 +81,3 @@ InputText: Represents an input field for text.
 @bind-Value: Binds the input field to the corresponding property in the formData object.
 ValidationMessage: Displays validation error messages for each field.-->
 
-
-
-testing change
