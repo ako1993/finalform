@@ -3,53 +3,36 @@
 <h1>Please fill out this form</h1>
 @using System.ComponentModel.DataAnnotations
 
-<EditForm Model="@formData" OnValidSubmit="@HandleSubmit">
+<EditForm Model="@user" OnValidSubmit="@HandleSubmit" FormName="userForm">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="form-group">
         <label for="name">Name:</label>
-        <InputText id="name" class="form-control" @bind-Value="@formData.Name" />
-        <ValidationMessage For="@(() => formData.Name)" />
+        <InputText id="name" class="form-control" @bind-Value="@user.Name" />
+        <ValidationMessage For="@(() => user.Name)" />
     </div>
 
     <div class="form-group">
         <label for="email">Email:</label>
-        <InputText id="email" class="form-control" @bind-Value="@formData.Email" />
-        <ValidationMessage For="@(() => formData.Email)" />
+        <InputText id="email" class="form-control" @bind-Value="@user.Email" />
+        <ValidationMessage For="@(() => user.Email)" />
     </div>
 
-    <div class="form-group">
-        <label for="email">Job Title:</label>
-        <InputText id="email" class="form-control" @bind-Value="@formData.JobTitle" />
-        <ValidationMessage For="@(() => formData.JobTitle)" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Purchase Ticket</button>
+    <button type="submit" class="btn btn-primary" @onclick=user.removeTickets>Request Refund</button>
 </EditForm>
 
+<p>Tickets Purchased: @user.Tickets</p>
+
 @code {
-    private FormData formData = new FormData();
-
-    public class FormData
-    {
-        [Required(ErrorMessage = "Name is required")]
-        public string Name { get; set; }
-
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string Email { get; set; }
-
-        [Required(ErrorMessage = "Job Title is required")]
-        [EmailAddress(ErrorMessage = "Invalid Job title")]
-        public string JobTitle { get; set; }
-    }
+    private User user = new User();
 
     private void HandleSubmit()
     {
         // Handle form submission logic here
         // This method will be called when the form is submitted and is valid
-        Console.WriteLine($"Submitted: Name={formData.Name}, Email={formData.Email}, Job Title={formData.JobTitle}");
+        user.addTickets();
     }
 
     public class User
